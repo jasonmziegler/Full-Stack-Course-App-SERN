@@ -6,10 +6,10 @@ export default class Header extends React.PureComponent {
     render() {
         return(
             <header>
-            <div class="wrap header--flex">
-                <h1 class="header--logo"><Link to="/">Courses</Link></h1>
+            <div className="wrap header--flex">
+                <h1 className="header--logo"><Link to="/">Courses</Link></h1>
                 <nav>
-                    <ul class="header--signedout">
+                    <ul className="header--signedout">
                         <Link to="/sign-up">Sign Up</Link>
                         <Link to="/sign-in">Sign In</Link>
                     </ul>
