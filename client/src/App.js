@@ -26,6 +26,7 @@ function App() {
       <Header />
       <Routes>
         <Route exact path='/' element={<Courses />} />
+        <Route path='/courses' element={<Courses />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/create-course' element={<CreateCourse />} />
