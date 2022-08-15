@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import './styles/index.css';
+
 
 // TODO: Import Provider from Context
 import App from './App';
