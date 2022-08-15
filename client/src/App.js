@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,7 +20,29 @@ import Error from './components/Error';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
 
-function App() {
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      courses: []
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:5000/api/courses/')
+    .then(response => response.json())
+    .then(responseData => {
+      // console.log('ResponseData: ',responseData);
+      this.setState({
+        courses: responseData,
+      });
+    })
+    .catch(error => {
+      console.log('Error', error);
+    });
+  }
+  render(){
+    console.log('Course: ', this.state.courses);
   return (
     <Router>
       <Header />
@@ -40,6 +62,7 @@ function App() {
       
     
   );
+}
 }
 
 export default App;

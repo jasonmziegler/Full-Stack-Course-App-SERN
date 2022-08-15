@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const { User, Course, sequelize } = require('./models');
 const { authenticateUser } = require('./middleware/auth-user');
 
+//Setup Course
+var cors = require('cors')
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -18,6 +20,9 @@ app.use(express.json());
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
+
+// Use Cors package
+app.use(cors())
 
 // setup a friendly greeting for the root route
 app.get('/', (req, res) => {
