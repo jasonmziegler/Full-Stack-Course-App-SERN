@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Link } from "react-router-dom";
 
+import Course from './Course';
+
+import { v4 as uuidv4 } from 'uuid';
+
 const axios = require('axios');
 
 class Courses extends Component {
@@ -12,83 +16,24 @@ class Courses extends Component {
     };
   }
   componentDidMount() {
-  
+    // Make a request for a user with a given ID
+    axios.get('http://localhost:5000/api/courses/')
+      .then( (response) => {
+        // handle success
+        //console.log(response);
+        this.setState({
+                  courses: response.data,
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+    }
 
-// Make a request for a user with a given ID
-axios.get('http://localhost:5000/api/courses/')
-  .then( (response) => {
-    // handle success
-    //console.log(response);
-    this.setState({
-              courses: response.data,
-    });
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
-
-    //TODO INSTALL AXIOS and try with AXIOS
-    // THIS Creates a READABLE Stream
-  //   fetch('http://localhost:5000/api/courses/')
-  //   .then(response => {
-  //     // console.log('ResponseData: ',responseData);
-  //     this.setState({
-  //       courses: response,
-  //     });
-  //   })
-  //   .catch(error => {
-  //     console.log('Error', error);
-  //   });
-
-
-   }
-
-// THIS IS CODE FROM https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
-//     // Fetch the original image 
-// fetch('http://localhost:5000/api/courses/')
-// // Retrieve its body as ReadableStream
-// .then((response) => {
-//   const reader = response.body.getReader();
-//   return new ReadableStream({
-//     start(controller) {
-//       return pump();
-//       function pump() {
-//         return reader.read().then(({ done, value }) => {
-//           // When no more data needs to be consumed, close the stream
-//           if (done) {
-//             controller.close();
-//             return;
-//           }
-//           // Enqueue the next data chunk into our target stream
-//           controller.enqueue(value);
-//           return pump();
-//         });
-//       }
-//     }
-//   })
-// })
-// // Create a new response out of the stream
-// .then((stream) => new Response(stream))
-// // Create an object URL for the response
-// .then((response) => {
-//   console.log(response);
-//   response.blob()})
-// .then((blob) => {
-//   const reader = new FileReader();
-//   reader.readAsArrayBuffer(blob)
-// })
-// // Update image
-// .then((courses) => {
-//   this.setState({
-//         courses,
-//       });
-//   })
-// .catch((err) => console.error(err));
-//   }
   render() {
     console.log('Courses: ', this.state.courses);
     let courses = this.state.courses;
@@ -98,10 +43,11 @@ axios.get('http://localhost:5000/api/courses/')
         <div className="wrap main--grid">
         {
           courses.map( course => (
-            <Link className="course--module course--link" to="/course-detail">
-              <h2 className="course--label">Course</h2>
-              <h3 className="course--title">{course.title}</h3>
-          </Link>
+            <Course id={course.id} title={course.title} key={uuidv4()}/>
+          //   <Link className="course--module course--link" to={`/course-detail/${course.id}`}>
+          //     <h2 className="course--label">Course</h2>
+          //     <h3 className="course--title">{course.title}</h3>
+          // </Link>
           ))
         }
         
