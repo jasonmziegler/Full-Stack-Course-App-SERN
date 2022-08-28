@@ -1,28 +1,103 @@
 import React, { Component } from 'react';
 
-class UpdateCourse extends Component {
+import Form from './Form';
+
+export default class UpdateCourse extends Component {
+    state = {
+        courseDescription: '',
+        password: '',
+        errors: [],
+      };
+    
+
     render() {
+        const {
+            courseTitle,
+            courseDescription,
+            estimatedTime,
+            materialsNeeded,
+            errors,
+          } = this.state;
+
         return (
             <main>
-            <div class="form--centered">
-                <h2>Sign Up</h2>
-                
-                {/* <form> */}
-                    <label for="firstName">First Name</label>
-                    {/* <input id="firstName" name="firstName" type="text" value=""> */}
-                    <label for="lastName">Last Name</label>
-                    {/* <input id="lastName" name="lastName" type="text" value=""> */}
-                    <label for="emailAddress">Email Address</label>
-                    {/* <input id="emailAddress" name="emailAddress" type="email" value=""> */}
-                    <label for="password">Password</label>
-                    {/* <input id="password" name="password" type="password" value=""> */}
-                    <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
-                {/* </form> */}
-                <p>Already have a user account? Click here to <a href="sign-in.html">sign in</a>!</p>
-            </div>
-        </main>
-        )
-    }
-}
+                <div className="wrap">
+                <h2>Update Course</h2>
+               
+                    <div className="main--flex">
+                        <Form 
+                            cancel={this.cancel}
+                            errors={errors}
+                            submit={this.submit}
+                            submitButtonText="Update Course"
+                            elements={() => (
+                              <React.Fragment>
+                                <div>
+                                    <label htmlFor="courseTitle">Course Title</label>
+                                    <input 
+                                    id="courseTitle" 
+                                    name="courseTitle" 
+                                    type="text"
+                                    value={courseTitle} 
+                                    onChange={this.change} 
+                                    placeholder="Course Title" />
+                                    <p>By Joe Smith</p>
+                                </div>
+                                <div>
+                                <label htmlFor="courseDescription">Course Description</label>
+                                <input 
+                                  id="courseDescription" 
+                                  name="courseDescription" 
+                                  type="text"
+                                  value={courseDescription} 
+                                  onChange={this.change} 
+                                  placeholder="Course Description" />
+                                <label htmlFor="estimatedTime">Estimated Time</label>
+                                <input 
+                                  id="estimatedTime" 
+                                  name="estimatedTime"
+                                  type="estimatedTime"
+                                  value={estimatedTime} 
+                                  onChange={this.change} 
+                                  placeholder="Estimated Time" />
+                                 <label htmlFor="materialsNeeded">Materials Needed</label>
+                                 <input 
+                                  id="materialsNeeded" 
+                                  name="materialsNeeded"
+                                  type="materialsNeeded"
+                                  value={materialsNeeded} 
+                                  onChange={this.change} 
+                                  placeholder="Materials Needed" />
+                            
+                                </div>
+                                
+                              </React.Fragment>
+                            )} />
+                        
+                        
+                    </div>
+                    
 
-export default UpdateCourse;
+            </div>
+            </main>
+        );
+    }
+    change = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+    
+        this.setState(() => {
+          return {
+            [name]: value
+          };
+        });
+      }
+    
+      submit = () => {
+    
+      }
+    
+      cancel = () => {
+    
+      }
+}
