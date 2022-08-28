@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const axios = require('axios');
-
-// This will be a stateless component, ( I THINK)
-
 
 const CourseDetail = () => {
         const params = useParams();
@@ -44,7 +42,7 @@ const CourseDetail = () => {
                 <div className="wrap">
                     <a className="button" href="/update-course">Update Course</a>
                     <a className="button" href="/courses">Delete Course</a>
-                    <a className="button button-secondary" href="index.html">Return to List</a>
+                <Link className="button button-secondary" to={'/'}>Return to List</Link>
                 </div>
             </div>
             
