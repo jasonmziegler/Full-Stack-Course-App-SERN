@@ -4,17 +4,21 @@ import { Link } from 'react-router-dom';
 
 import Form from './Form';
 
+import axios from 'axios';
+
 class SignUp extends Component {
     state = {
-        name: '',
-        username: '',
+        firstName: '',
+        lastName: '',
+        emailAddress: '',
         password: '',
         errors: [],
       }
     render() {
         const {
-            name,
-            username,
+            firstName,
+            lastName,
+            emailAddress,
             password,
             errors,
           } = this.state;
@@ -31,20 +35,28 @@ class SignUp extends Component {
                         <React.Fragment>
                             <label htmlFor="firstName">First Name</label>
                             <input 
-                                id="name" 
-                                name="name" 
+                                id="firstName" 
+                                name="firstName" 
                                 type="text"
-                                value={name} 
+                                value={firstName} 
                                 onChange={this.change} 
-                                placeholder="Name" />
+                                placeholder="First Name" />
+                            <label htmlFor="lastName">Last Name</label>
+                            <input 
+                                id="lastName" 
+                                name="lastName" 
+                                type="text"
+                                value={lastName} 
+                                onChange={this.change} 
+                                placeholder="Last Name" />
                             <label htmlFor="emailAddress">Email Address</label>
                             <input 
-                                id="username" 
-                                name="username" 
+                                id="emailAddress" 
+                                name="emailAddress" 
                                 type="text"
-                                value={username} 
+                                value={emailAddress} 
                                 onChange={this.change} 
-                                placeholder="User Name" />
+                                placeholder="Email Address" />
                             <label htmlFor="password">Password</label>
                             <input 
                                 id="password" 
@@ -73,6 +85,58 @@ class SignUp extends Component {
     
       submit = () => {
         console.log("Form Submitted");
+        // const { context } = this.props;
+        // Adapted from https://teamtreehouse.com/library/react-authentication/implementing-basic-authentication/implement-the-sign-up-form
+        const {
+            firstName,
+            lastName,
+            emailAddress,
+            password,
+            } = this.state; 
+
+        // New user payload
+        const user = {
+            firstName,
+            lastName,
+            emailAddress,
+            password,
+            };
+        // From (Data.js) in Basic Authentication course
+        // const response = await this.api('/users', 'POST', user);
+        // if (response.status === 201) {
+        //     return [];
+        // }
+        // else if (response.status === 400) {
+        //     return response.json().then(data => {
+        //     return data.errors;
+        //     });
+        // }
+        // else {
+        //     throw new Error();
+        // }
+        axios.post('http://localhost:5000/api/users', {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            emailAddress: user.emailAddress,
+            password: user.password
+          })
+          .then(function (response) {
+            console.log(response);
+            if (response.status === 201) {
+                    return [];
+            }
+                else if (response.status === 400) {
+                    return response.json().then(data => {
+                    return data.errors;
+                    });
+                }
+                else {
+                    throw new Error();
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     
       cancel = () => {

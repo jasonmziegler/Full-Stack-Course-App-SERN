@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
                     msg: 'A Last Name is required to create a user record.'
                 },
                 notEmpty: {
-                    msg: 'Please provide a first name.'
+                    msg: 'Please provide a last name.'
                 }
             }            
         },
