@@ -31,7 +31,7 @@ class CreateCourse extends Component {
                             <li>Please provide a value for "Description"</li>
                         </ul>
                     </div>
-                    <div className="main--flex">
+                    
                         <Form 
                             cancel={this.cancel}
                             errors={errors}
@@ -39,6 +39,7 @@ class CreateCourse extends Component {
                             submitButtonText="Create Course"
                             elements={() => (
                             <React.Fragment>
+                                <div className="main--flex">
                                 <div>
                                     <label htmlFor="courseTitle">Course Title</label>
                                     <input 
@@ -48,6 +49,15 @@ class CreateCourse extends Component {
                                         value={courseTitle} 
                                         onChange={this.change} 
                                         placeholder="Course Title" />
+                                    <label htmlFor='user'>User</label>
+                                    <input
+                                        id="user"
+                                        name="user"
+                                        type="text"
+                                        value={userId}
+                                        disabled
+                                        onChange={this.change}
+                                        placeholder={userId} />
                                     <label htmlFor="courseDescription">Course Description</label>
                                     <textarea 
                                         id="courseDescription" 
@@ -74,11 +84,10 @@ class CreateCourse extends Component {
                                         onChange={this.change} 
                                         placeholder="Materials Needed" />
                                 </div>
+                                </div>
                             </React.Fragment>
-                        )} />
-                            
+                        )} />  
                     </div>
-                </div>
             </main>
             )
         }
