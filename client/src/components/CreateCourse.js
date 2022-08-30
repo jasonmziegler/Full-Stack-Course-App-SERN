@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Form from './Form';
 
+import axios from 'axios';
+
 class CreateCourse extends Component {
     state = {
         courseTitle: '',
@@ -105,7 +107,48 @@ class CreateCourse extends Component {
 
         submit = () => {
             console.log("Form Submitted");
+            const {
+                courseTitle,
+                courseDescription,
+                userId,
+                estimatedTime,
+                materialsNeeded
+                } = this.state; 
+            // New course payload
+        const course = {
+            courseTitle,
+            courseDescription,
+            userId,
+            estimatedTime,
+            materialsNeeded
+            };
+        //Post to API create course
+        axios.post('http://localhost:5000/api/courses', {
+            title: course.firstName,
+            description: course.description,
+            userId: course.userId,
+            estimatedTime: course.estimatedTime,
+            materialsNeeded: course.materialsNeeded
+          })
+          .then(function (response) {
+            console.log(response);
+            if (response.status === 201) {
+                    return [];
+            }
+                else if (response.status === 400) {
+                    return response.json().then(data => {
+                    return data.errors;
+                    });
+                }
+                else {
+                    throw new Error();
+                }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         }
+
         
         cancel = () => {
         console.log("Form Cancelled");
