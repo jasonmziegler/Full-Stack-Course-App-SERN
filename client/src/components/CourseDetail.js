@@ -40,8 +40,8 @@ const CourseDetail = () => {
             <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <a className="button" href="/update-course">Update Course</a>
-                    <a className="button" href="/courses">Delete Course</a>
+                    <Link className="button" to={`update`}>Update Course</Link>
+                    <button className="button" >Delete Course</button>
                 <Link className="button button-secondary" to={'/'}>Return to List</Link>
                 </div>
             </div>

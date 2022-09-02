@@ -30,9 +30,9 @@ class App extends Component {
         <Route path='/courses' element={<Courses />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/create-course' element={<CreateCourse />} />
-        <Route path='/update-course' element={<UpdateCourse />} />
-        <Route path='/course-detail/:id' element={<CourseDetail />} />
+        <Route path='/courses/create' element={<CreateCourse />} />
+        <Route path='/courses/:id/update' element={<UpdateCourse />} />
+        <Route path='/courses/:id' element={<CourseDetail />} />
         <Route path='/error' element={<Error />} />
         <Route path='/not-found' element={<NotFound />} />
         <Route path='/forbidden' element={<Forbidden />} />

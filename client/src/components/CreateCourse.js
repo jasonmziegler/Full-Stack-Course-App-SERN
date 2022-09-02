@@ -4,6 +4,10 @@ import Form from './Form';
 
 import axios from 'axios';
 
+// Adapted from https://stackoverflow.com/questions/44877821/how-to-navigate-on-path-by-button-click-in-react-router-v4
+//https://stackoverflow.com/questions/62861269/attempted-import-error-usehistory-is-not-exported-from-react-router-dom
+import { useNavigate } from 'react-router-dom';
+
 class CreateCourse extends Component {
     state = {
         courseTitle: '',
@@ -152,6 +156,7 @@ class CreateCourse extends Component {
         
         cancel = () => {
         console.log("Form Cancelled");
+        useNavigate("/");
         }
 
     }
