@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import Form from './Form';
 
+// NEED TO TURN INTO AN ARROW FUNCTION not a class component but a "Arrow Function Component"
+// Need to use "useState" 
+// Need to use useNavigate
+
 export default class UpdateCourse extends Component {
     state = {
         courseDescription: '',
