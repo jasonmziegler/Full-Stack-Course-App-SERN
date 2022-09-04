@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const axios = require('axios');
 
+/// NEED to Pass details as props to update course to display already gathered info from API
+
 const CourseDetail = () => {
         const params = useParams();
         console.log("Params", params);
