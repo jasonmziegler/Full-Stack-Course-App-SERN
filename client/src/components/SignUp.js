@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Form from './Form';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 class SignUp extends Component {
     state = {
@@ -109,29 +109,24 @@ class SignUp extends Component {
         // use .then() to handle the promise? This has been tricky with Axios. the example uses fetch ( never been able to use Fetch successfully)
         // inside then handle errors, after then() use.catch to handle rejected promises inside catch block push /error to history stack this.props.history.push('/error')
         // TODO: convert to a functional component and use State Hook useState to manage state
-        axios.post('http://localhost:5000/api/users', {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            emailAddress: user.emailAddress,
-            password: user.password
-          })
-          .then(function (response) {
-            console.log(response);
-            if (response.status === 201) {
-                    return [];
-            }
-                else if (response.status === 400) {
-                    return response.json().then(data => {
-                    return data.errors;
-                    });
-                }
-                else {
-                    throw new Error();
-                }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        // axios.post('http://localhost:5000/api/users', {
+        //     firstName: user.firstName,
+        //     lastName: user.lastName,
+        //     emailAddress: user.emailAddress,
+        //     password: user.password
+        //   })
+        context.data.createUser(user)
+        .then( errors => {
+          if (errors.length) {
+            this.setState({ errors });
+          } else {
+            console.log(`${user.emailAddress} is successfully signed up and authenticated!`);
+          }
+        }) 
+        .catch( err => { 
+          console.log(err);
+          this.props.history.push('/error'); // push to history stack
+        });   
       }
     
       cancel = () => {
