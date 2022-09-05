@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
+
 import Form from './Form';
 
 // import axios from 'axios';
@@ -14,7 +15,7 @@ class SignUp extends Component {
         password: '',
         errors: [],
       }
-    render() {
+    render(props) {
         const {
             firstName,
             lastName,
@@ -125,7 +126,8 @@ class SignUp extends Component {
         }) 
         .catch( err => { 
           console.log(err);
-          this.props.history.push('/error'); // push to history stack
+          // this.props.history.push('/error'); // push to history stack
+          console.log("Props: ",this.props);
         });   
       }
     

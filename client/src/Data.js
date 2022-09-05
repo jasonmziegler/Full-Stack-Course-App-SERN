@@ -14,12 +14,13 @@ export default class Data {
         // This function will create a user by posting to API via Axios
         console.log("Pretending to create User");
         // const response = await this.api('/users', 'POST', user);
-        const response = axios.post(config.apiBaseUrl + `/users`, {
+        const response = await axios.post(config.apiBaseUrl + `/users`, {
             firstName: user.firstName,
             lastName: user.lastName,
             emailAddress: user.emailAddress,
             password: user.password
         });
+        console.log("Response Status: ", response);
         if (response.status === 201) {
         return [];
         }
