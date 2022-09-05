@@ -85,6 +85,8 @@ class SignUp extends Component {
     
       submit = () => {
         console.log("Form Submitted");
+        const  { context } = this.props;
+        console.log(context);
         // const { context } = this.props;
         // Adapted from https://teamtreehouse.com/library/react-authentication/implementing-basic-authentication/implement-the-sign-up-form
         const {
@@ -101,19 +103,12 @@ class SignUp extends Component {
             emailAddress,
             password,
             };
-        // From (Data.js) in Basic Authentication course
-        // const response = await this.api('/users', 'POST', user);
-        // if (response.status === 201) {
-        //     return [];
-        // }
-        // else if (response.status === 400) {
-        //     return response.json().then(data => {
-        //     return data.errors;
-        //     });
-        // }
-        // else {
-        //     throw new Error();
-        // }
+
+        // TODO: Move this to Data.js and now once this component uses context
+        // context.data.createUser(user);
+        // use .then() to handle the promise? This has been tricky with Axios. the example uses fetch ( never been able to use Fetch successfully)
+        // inside then handle errors, after then() use.catch to handle rejected promises inside catch block push /error to history stack this.props.history.push('/error')
+        // TODO: convert to a functional component and use State Hook useState to manage state
         axios.post('http://localhost:5000/api/users', {
             firstName: user.firstName,
             lastName: user.lastName,

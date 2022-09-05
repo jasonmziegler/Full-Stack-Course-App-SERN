@@ -22,8 +22,8 @@ import NotFound from './components/NotFound';
 
 // TODO: Connect the UserSignUp Component to Context
 // New import
-// import withContext from './Context';
-// const UserSignUpWithContext = withContext(UserSignUp);
+import withContext from './Context';
+const SignUpWithContext = withContext(SignUp);
 
 class App extends Component {
   render(){
@@ -34,7 +34,7 @@ class App extends Component {
         <Route exact path='/' element={<Courses />} />
         <Route path='/courses' element={<Courses />} />
         <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/sign-up' element={<SignUpWithContext />} />
         {/* <Route path='/sign-up' element={<SignUpWithContext />} /> */}
         <Route path='/courses/create' element={<CreateCourse />} />
         <Route path='/courses/:id/update' element={<UpdateCourse />} />

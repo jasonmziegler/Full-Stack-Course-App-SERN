@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-
-
 // TODO: Import Provider from Context
+import { Provider } from './Context';
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
 
@@ -13,8 +12,11 @@ root.render(
 
   // TODO: Wrap with Provider
   <React.StrictMode>
-    <App />
+    <Provider>
+      <App />
+    </Provider>
   </React.StrictMode>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

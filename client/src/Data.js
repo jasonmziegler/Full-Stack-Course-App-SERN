@@ -1,4 +1,4 @@
-import config from "./config";
+// import config from "./config";
 
 export default class Data {
     //Here is where we sill create the api interfacing functions
