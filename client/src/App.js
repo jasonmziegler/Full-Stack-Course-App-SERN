@@ -25,12 +25,13 @@ import NotFound from './components/NotFound';
 import withContext from './Context';
 const SignUpWithContext = withContext(SignUp);
 const SignInWithContext = withContext(SignIn);
+const HeaderWithContext = withContext(Header);
 
 class App extends Component {
   render(){
   return (
     <Router>
-      <Header />
+      <HeaderWithContext />
       <Routes>
         <Route exact path='/' element={<Courses />} />
         <Route path='/courses' element={<Courses />} />

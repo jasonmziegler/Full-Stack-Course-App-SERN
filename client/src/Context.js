@@ -5,6 +5,10 @@ import Data from './Data'; // import helper functions from Data.js
 const Context = React.createContext(); 
 
 export class Provider extends Component {
+  // We need to track whether or not a user has been authenticated so we initialize an authenticatedUser state in the Provider class. Set the default state to null:
+  state = {
+    authenticatedUser: null
+  };
 
   constructor() {
     super();
@@ -12,7 +16,9 @@ export class Provider extends Component {
   }
 
   render() {
+    const { authenticatedUser } = this.state;
     const value = {
+      authenticatedUser,
       data: this.data,
       actions: {
         signIn: this.signIn,
