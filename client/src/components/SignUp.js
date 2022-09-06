@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 import Form from './Form';
@@ -10,6 +10,7 @@ import Form from './Form';
 const SignUp = (props) => {
   console.log("Props: ", props);
   const  { context } = props;
+  let navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -55,12 +56,13 @@ const SignUp = (props) => {
         setErrors({ errors });
       } else {
         console.log(`${user.emailAddress} is successfully signed up and authenticated!`);
+        navigate("/");
       }
     }) 
     .catch( err => { 
       console.log(err);
       // this.props.history.push('/error'); // push to history stack
-      console.log("Props: ",this.props);
+      navigate('/error');
     });   
   }
 
