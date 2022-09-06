@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Form from './Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // NEED TO TURN INTO AN ARROW FUNCTION not a class component but a "Arrow Function Component"
 // Need to use "useState" 
 // Need to use useNavigate
-const  SignIn = () => {
+const  SignIn = (props) => {
+  const  { context } = props;
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -34,6 +36,23 @@ const  SignIn = () => {
 
   const submit = () => {
     console.log("Form Submitted");
+    context.actions.signIn(username, password)
+    //Get the value out of the returned promise by chaining a then() method to signIn:
+    .then( user => {
+      if (user === null) {
+        setErrors(() => {
+          return { errors: [ 'Sign-in was unsuccessful' ] };
+        });
+      } else {
+        navigate("/");
+        console.log(`SUCCESS! ${username} is now signed in!`);
+     }
+    })
+    // chain the catch() method to the promise sequence to handle a rejected promise returned by signIn().
+    .catch(err => {
+      console.log(err);
+      navigate("/error");
+    })
   }
 
   const cancel = () => {
