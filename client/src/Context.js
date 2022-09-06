@@ -14,6 +14,10 @@ export class Provider extends Component {
   render() {
     const value = {
       data: this.data,
+      actions: {
+        signIn: this.signIn,
+
+      }
     }
     return ( 
       // value represents an object containing the context to be shared throughout the component tree.
@@ -23,9 +27,11 @@ export class Provider extends Component {
     );
   }
 
-  
-  signIn = async () => {
-
+  // From Treehouse Basic Authentication course: The signIn function is an asynchronous function that takes a username and password as arguments. signIn uses those credentials to call the getUser() method in Data.js, which makes a GET request to the protected /users route on the server and returns the user data.
+  signIn = async (username, password) => {
+    //  From Treehouse Basic Authentication course: initialize a variable named user and set the value to await a promise returned by this.data.getUser()
+    const user = await this.data.getUser(username, password);
+    return user;
   }
 
   signOut = () => {
