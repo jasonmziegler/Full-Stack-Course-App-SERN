@@ -37,6 +37,15 @@ export class Provider extends Component {
   signIn = async (username, password) => {
     //  From Treehouse Basic Authentication course: initialize a variable named user and set the value to await a promise returned by this.data.getUser()
     const user = await this.data.getUser(username, password);
+    // If the value of user is not null, update the authenticatedUser state to the value of user:
+    if (user !== null) {
+      console.log("Context SignIn User not Null line 42: ", user);
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+    }
     return user;
   }
 

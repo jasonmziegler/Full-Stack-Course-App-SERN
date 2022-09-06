@@ -34,6 +34,7 @@ export default class Data {
         //This function will use Axios to get data from API
         console.log("Pretending to fetch data from API...");
         const response = await this.api(`/users`, 'GET', null, true, { username, password });
+        return response.data;
     }
 
     async createUser(user) { 
