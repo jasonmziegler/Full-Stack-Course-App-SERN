@@ -4,8 +4,33 @@ import axios from "axios";
 
 export default class Data {
     //Here is where we sill create the api interfacing functions
+    api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
+        const url = config.apiBaseUrl + path;
+        
+        const options = {
+          url, 
+          method,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        };
+    
+        if (body !== null) {
+          options.data = JSON.stringify(body);
+          //console.log("Options Body: ", options.body);
+        }
+        // checks if requiresAuth is truthy (or considered true):
+        if (requiresAuth) {
+          const encodedCredentials =  btoa(`${credentials.username}:${credentials.password}`); 
+          options.headers['Authorization'] = `Basic ${encodedCredentials}`;  
+    
+        }
+        
+        return axios(options);
+      }
 
-    async getUser() {
+    async getUser(username, password) {
         //This function will use Axios to get data from API
         console.log("Pretending to fetch data from API...");
     }
@@ -14,11 +39,11 @@ export default class Data {
         // This function will create a user by posting to API via Axios
         console.log("Pretending to create User");
         // const response = await this.api('/users', 'POST', user);
-        const response = await axios.post(config.apiBaseUrl + `/users`, {
+        const response = await this.api('/users', "POST", {
             firstName: user.firstName,
             lastName: user.lastName,
             emailAddress: user.emailAddress,
-            password: user.password
+            password: user.password,
         });
         console.log("Response Status: ", response);
         if (response.status === 201) {

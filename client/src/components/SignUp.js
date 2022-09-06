@@ -8,7 +8,7 @@ import Form from './Form';
 // import axios from 'axios';
 // TODO: convert to a functional component and use State Hook useState to manage state
 const SignUp = (props) => {
-  console.log("Props: ", props);
+  // console.log("Props: ", props);
   const  { context } = props;
   let navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
