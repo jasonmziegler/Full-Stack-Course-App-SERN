@@ -23,9 +23,12 @@ import NotFound from './components/NotFound';
 // TODO: Connect the UserSignUp Component to Context
 // New import
 import withContext from './Context';
+import PrivateRoutes from './PrivateRoutes';
+
 const SignUpWithContext = withContext(SignUp);
 const SignInWithContext = withContext(SignIn);
 const HeaderWithContext = withContext(Header);
+const PrivateRoutesWithContext = withContext(PrivateRoutes);
 
 class App extends Component {
   render(){
@@ -37,8 +40,11 @@ class App extends Component {
         <Route path='/courses' element={<Courses />} />
         <Route path='/sign-in' element={<SignInWithContext />} />
         <Route path='/sign-up' element={<SignUpWithContext />} />        
-        <Route path='/courses/create' element={<CreateCourse />} />
-        <Route path='/courses/:id/update' element={<UpdateCourse />} />
+        {/* <Route path='/courses/create' element={<CreateCourse />} /> */}
+        <Route element={<PrivateRoutesWithContext/>}>
+          <Route path='/courses/create' element={<CreateCourse />} />
+          <Route path='/courses/:id/update' element={<UpdateCourse />} />
+        </Route>
         <Route path='/courses/:id' element={<CourseDetail />} />
         <Route path='/error' element={<Error />} />
         <Route path='/not-found' element={<NotFound />} />
