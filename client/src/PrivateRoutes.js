@@ -6,7 +6,9 @@ import { Outlet, Navigate } from 'react-router-dom';
 
  const PrivateRoutes = (props) => {
   // import context and use here?
-  let auth = {'token': false}
+  const  { context } = props;
+  console.log("Private Routes Context: ", context);
+  let auth = {'token': context.authenticatedUser};
     return (
         auth.token ? <Outlet/> : <Navigate to='/sign-in'/>
     );
