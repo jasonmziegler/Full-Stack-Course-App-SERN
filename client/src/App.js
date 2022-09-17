@@ -12,6 +12,7 @@ import './styles/global.css';
 import Header from './components/Header';
 import Courses from './components/Courses';
 import SignIn from './components/SignIn';
+import SignOut from './components/SignOut';
 import SignUp from './components/SignUp';
 import CreateCourse from './components/CreateCourse';
 import CourseDetail from './components/CourseDetail';
@@ -27,8 +28,10 @@ import PrivateRoutes from './PrivateRoutes';
 
 const SignUpWithContext = withContext(SignUp);
 const SignInWithContext = withContext(SignIn);
+const SignOutWithContext = withContext(SignOut);
 const HeaderWithContext = withContext(Header);
 const PrivateRoutesWithContext = withContext(PrivateRoutes);
+
 
 class App extends Component {
   render(){
@@ -39,7 +42,8 @@ class App extends Component {
         <Route exact path='/' element={<Courses />} />
         <Route path='/courses' element={<Courses />} />
         <Route path='/sign-in' element={<SignInWithContext />} />
-        <Route path='/sign-up' element={<SignUpWithContext />} />        
+        <Route path='/sign-up' element={<SignUpWithContext />} />   
+        <Route path='/sign-out' element={<SignOutWithContext />} />        
         {/* <Route path='/courses/create' element={<CreateCourse />} /> */}
         <Route element={<PrivateRoutesWithContext/>}>
           <Route path='/courses/create' element={<CreateCourse />} />

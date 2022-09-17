@@ -22,6 +22,7 @@ export class Provider extends Component {
       data: this.data,
       actions: {
         signIn: this.signIn,
+        signOut: this.signOut
 
       }
     }
@@ -50,7 +51,12 @@ export class Provider extends Component {
   }
 
   signOut = () => {
-
+    console.log('Context signOut function Called')
+    this.setState(() => {
+      return {
+        authenticatedUser: null,
+      };
+    });
   }
 }
 
