@@ -2,6 +2,8 @@
 // Using context to provide the Data API Utility methods throughout the app (signIn, signOut, getUser, deleteUser, deleteCourse, etc)
 import React, { Component } from 'react';
 import Data from './Data'; // import helper functions from Data.js
+import Cookies from 'js-cookie';
+
 const Context = React.createContext(); 
 
 export class Provider extends Component {
@@ -46,6 +48,8 @@ export class Provider extends Component {
           authenticatedUser: user,
         };
       });
+      // Set Cookie with User login data
+      Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
     return user;
   }
@@ -57,6 +61,7 @@ export class Provider extends Component {
         authenticatedUser: null,
       };
     });
+    Cookies.remove('authenticatedUser');
   }
 }
 
