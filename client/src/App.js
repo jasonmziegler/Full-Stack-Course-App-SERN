@@ -31,6 +31,7 @@ const SignInWithContext = withContext(SignIn);
 const SignOutWithContext = withContext(SignOut);
 const HeaderWithContext = withContext(Header);
 const PrivateRoutesWithContext = withContext(PrivateRoutes);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 
 
 class App extends Component {
@@ -47,7 +48,7 @@ class App extends Component {
         {/* <Route path='/courses/create' element={<CreateCourse />} /> */}
         <Route element={<PrivateRoutesWithContext/>}>
           <Route path='/courses/create' element={<CreateCourse />} />
-          <Route path='/courses/:id/update' element={<UpdateCourse />} />
+          <Route path='/courses/:id/update' element={<UpdateCourseWithContext />} />
         </Route>
         <Route path='/courses/:id' element={<CourseDetail />} />
         <Route path='/error' element={<Error />} />

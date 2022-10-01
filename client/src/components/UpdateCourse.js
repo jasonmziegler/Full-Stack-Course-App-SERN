@@ -8,7 +8,9 @@ import axios from 'axios';
 // Need to use "useState" 
 // Need to use useNavigate
 
- const UpdateCourse = () => {
+ const UpdateCourse = (props) => {
+  const  { context } = props;
+  console.log("Context: ", context);
   const params = useParams();
   const [courseTitle, setCourseTitle] = useState("");
   const [userId, setUserId] = useState(1);
