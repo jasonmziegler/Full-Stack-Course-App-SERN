@@ -32,7 +32,7 @@ exports.authenticateUser = async (req, res, next) => {
                 // will have access to the user's information.
             } else {
                 // If user authentication failed...
-                message = `Authentication failure for username: ${user.username}`;
+                message = `Authentication failure for username: ${user.emailAddress}`;
                 // Return a response with a 401 Unauthorized HTTP status code.
             }
         } else {

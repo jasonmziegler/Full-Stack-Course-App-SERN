@@ -60,4 +60,25 @@ export default class Data {
         throw new Error();
     }
     }
+
+    async updateCourse(body,courseId, credentials) {
+      //Post to API create course
+      console.log("Credentials inside updateCourse line 66: ", credentials);
+      const response = await this.api(`/courses/${courseId}`, "PUT", body, true, credentials)
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 204) {
+                return [];
+        }
+            else if (response.status === 400) {
+                return response.json().then(data => {
+                    //setErrors(data.errors);
+                    return data.errors;
+                });
+            }
+            else {
+                throw new Error();
+            }
+      })
+    }
 }

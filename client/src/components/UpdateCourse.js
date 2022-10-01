@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from './Form';
-
-import axios from 'axios';
+//import axios from 'axios';
 
 // NEED TO TURN INTO AN ARROW FUNCTION not a class component but a "Arrow Function Component"
 // Need to use "useState" 
@@ -11,6 +10,11 @@ import axios from 'axios';
  const UpdateCourse = (props) => {
   const  { context } = props;
   console.log("Context: ", context);
+  const credentials = {
+    'username': context.authenticatedUser.emailAddress,
+    'password': context.authenticatedUser.password
+  }
+    console.log("Credentials: ", credentials);
   const params = useParams();
   const [courseTitle, setCourseTitle] = useState("");
   const [userId, setUserId] = useState(1);
@@ -49,33 +53,19 @@ import axios from 'axios';
         estimatedTime,
         materialsNeeded
         };
-    //Post to API create course
-    axios.put(`http://localhost:5000/api/courses/${params.id}`, {
+      const body = {
         title: course.firstName,
         description: course.description,
         userId: course.userId,
         estimatedTime: course.estimatedTime,
         materialsNeeded: course.materialsNeeded
-      })
-      .then(function (response) {
-        console.log(response);
-        if (response.status === 201) {
-                return [];
-        }
-            else if (response.status === 400) {
-                return response.json().then(data => {
-                    setErrors(data.errors);
-                return data.errors;
-                });
-            }
-            else {
-                throw new Error();
-            }
-      })
-      .catch(function (error) {
-        console.log(error);
-         setErrors(error);
-      });
+      }
+
+    context.data.updateCourse(body, params.id, credentials)
+    .catch(function (error) {
+      console.log(error);
+       setErrors(error);
+    });
 
     }
   
