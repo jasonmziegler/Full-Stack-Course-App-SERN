@@ -32,7 +32,7 @@ export default class Data {
 
     async getUser(username, password) {
         //This function will use Axios to get data from API
-        console.log("Pretending to fetch data from API...");
+        console.log("Fetch User data from API...");
         const response = await this.api(`/users`, 'GET', null, true, { username, password });
         return response.data;
     }
@@ -69,16 +69,14 @@ export default class Data {
         console.log(response);
         if (response.status === 204) {
                 return [];
+        } else if (response.status === 400) {
+          return response.json().then(data => {
+              //setErrors(data.errors);
+              return data.errors;
+          });
+        } else {
+          throw new Error();
         }
-            else if (response.status === 400) {
-                return response.json().then(data => {
-                    //setErrors(data.errors);
-                    return data.errors;
-                });
-            }
-            else {
-                throw new Error();
-            }
       })
     }
 }
