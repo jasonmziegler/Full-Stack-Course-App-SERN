@@ -8,13 +8,21 @@ const Context = React.createContext();
 
 export class Provider extends Component {
   // We need to track whether or not a user has been authenticated so we initialize an authenticatedUser state in the Provider class. Set the default state to null:
-  state = {
-    authenticatedUser: null
-  };
+  // state = {
+  //   authenticatedUser: null
+  // };
 
   constructor() {
     super();
     this.data = new Data(); //Initialize a new instance of the Data class 
+
+    // Retrieve the value of the cookie using Cookies.getJSON()
+    this.cookie = Cookies.get('authenticatedUser');
+    // Set initial state of the Provider class to the valaue stored in the authenticatedUser cooke or null
+    this.state = {
+      authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null
+    };
+
   }
 
   render() {
