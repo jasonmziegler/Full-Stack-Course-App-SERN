@@ -2,86 +2,46 @@ import React, { useState } from 'react';
 
 import Form from './Form';
 
-import axios from 'axios';
-
 // Adapted from https://stackoverflow.com/questions/44877821/how-to-navigate-on-path-by-button-click-in-react-router-v4
 //https://stackoverflow.com/questions/62861269/attempted-import-error-usehistory-is-not-exported-from-react-router-dom
+
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateCourse() {
-    let navigate = useNavigate();
+// Arrow Function Create Course 
+const CreateCourse = (props) => {
 
-    // state = {
-    //     courseTitle: '',
-    //     courseDescription: '',
-    //     materialsNeeded: '',
-    //     estimatedTime: '',
-    //     userId: 1,
-    //     errors: [],
-    //   }
+    // using navigate in case of cancel button click
+    let navigate = useNavigate();
+    const {context} = props;
+    //console.log("Context: ", context);
+    const credentials = {
+        'username': context.authenticatedUser.emailAddress,
+        'password': context.authenticatedUser.password
+      }
     
     const [courseTitle, setCourseTitle] = useState("");
     const [courseDescription, setCourseDescription] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
-    const [userId, setUserId] = useState(1);
+    const [userId, setUserId] = useState(context.authenticatedUser.id);
     const [errors, setErrors] = useState([]);
 
-    // const change = (event) => {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
     
-    //     this.setState(() => {
-    //       return {
-    //         [name]: value
-    //       };
-    //     });
-    // }
 
     const submit = () => {
         console.log("Form Submitted");
-        // const {
-        //     courseTitle,
-        //     courseDescription,
-        //     userId,
-        //     estimatedTime,
-        //     materialsNeeded
-        //     } = this.state; 
-        // // New course payload
-    const course = {
-        courseTitle,
-        courseDescription,
-        userId,
-        estimatedTime,
-        materialsNeeded
-        };
-    //Post to API create course
-    axios.post('http://localhost:5000/api/courses', {
-        title: course.firstName,
-        description: course.description,
-        userId: course.userId,
-        estimatedTime: course.estimatedTime,
-        materialsNeeded: course.materialsNeeded
-      })
-      .then(function (response) {
-        console.log(response);
-        if (response.status === 201) {
-                return [];
-        }
-            else if (response.status === 400) {
-                return response.json().then(data => {
-                    setErrors(data.errors);
-                return data.errors;
-                });
-            }
-            else {
-                throw new Error();
-            }
-      })
-      .catch(function (error) {
-        console.log(error);
-         setErrors(error);
-      });
+        const course = {
+            courseTitle,
+            courseDescription,
+            userId,
+            estimatedTime,
+            materialsNeeded
+            };
+        context.data.createCourse(course, credentials)
+        .catch(function (error) {
+            console.log(error);
+            setErrors(error);
+        });    
     }
 
     const cancel = () => {
@@ -124,7 +84,7 @@ export default function CreateCourse() {
                                     value={courseTitle} 
                                     onChange={(e) => setCourseTitle(e.target.value)} 
                                     placeholder="Course Title" />
-                                <label htmlFor='user'>User</label>
+                                <label htmlFor='user'>User Id</label>
                                 <input
                                     id="user"
                                     name="user"
@@ -166,4 +126,48 @@ export default function CreateCourse() {
         </main>
         )
 }
+
+export default CreateCourse;
+       
+       
+
+       
+// const change = (event) => {
+    //     const name = event.target.name;
+    //     const value = event.target.value;
+    
+    //     this.setState(() => {
+    //       return {
+    //         [name]: value
+    //       };
+    //     });
+    // }
+
+//Post to API create course
+    // axios.post('http://localhost:5000/api/courses', {
+    //     title: course.firstName,
+    //     description: course.description,
+    //     userId: course.userId,
+    //     estimatedTime: course.estimatedTime,
+    //     materialsNeeded: course.materialsNeeded
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //     if (response.status === 201) {
+    //             return [];
+    //     }
+    //         else if (response.status === 400) {
+    //             return response.json().then(data => {
+    //                 setErrors(data.errors);
+    //             return data.errors;
+    //             });
+    //         }
+    //         else {
+    //             throw new Error();
+    //         }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //      setErrors(error);
+    //   });
             
