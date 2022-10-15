@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from './Form';
-//import axios from 'axios';
 
-// NEED TO TURN INTO AN ARROW FUNCTION not a class component but a "Arrow Function Component"
-// Need to use "useState" 
-// Need to use useNavigate
+import { useNavigate } from 'react-router-dom';
 
  const UpdateCourse = (props) => {
+  let navigate = useNavigate();
   const  { context } = props;
   console.log("Context: ", context);
   const credentials = {
@@ -23,27 +21,7 @@ import Form from './Form';
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
     
-    // render() {
-    //     const {
-    //         courseTitle,
-    //         courseDescription,
-    //         estimatedTime,
-    //         materialsNeeded,
-    //         errors,
-    //       } = this.state;
-
-
-    // const change = (event) => {
-    //   const name = event.target.name;
-    //   const value = event.target.value;
   
-    //   this.setState(() => {
-    //     return {
-    //       [name]: value
-    //     };
-    //   });
-    // }
-    //NEED TO: Use Context for API Call
     const submit = () => {
       console.log('Update Course button Clicked!');
       const course = {
@@ -72,6 +50,7 @@ import Form from './Form';
     const cancel = () => {
       //TODO: need to send back to course detail
       console.log("Cancel Button Clicked");
+      navigate(`/courses/${params.id}`);
     }
     return (
         <main>
@@ -143,3 +122,26 @@ import Form from './Form';
 }
 
 export default UpdateCourse;
+
+
+  // render() {
+    //     const {
+    //         courseTitle,
+    //         courseDescription,
+    //         estimatedTime,
+    //         materialsNeeded,
+    //         errors,
+    //       } = this.state;
+
+
+    // const change = (event) => {
+    //   const name = event.target.name;
+    //   const value = event.target.value;
+  
+    //   this.setState(() => {
+    //     return {
+    //       [name]: value
+    //     };
+    //   });
+    // }
+    //NEED TO: Use Context for API Call
