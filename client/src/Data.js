@@ -93,6 +93,25 @@ export default class Data {
         } else {
           throw new Error();
         }
+      });
+    }
+
+    async getCourse(courseId) {
+      // console.log("context.data.getCourse");
+      await this.api(`/courses/${courseId}`, "GET")
+      .then(function (response) {
+        console.log(response);
+        if (response.status === 200) {
+                return response.data;
+        } else if (response.status === 400) {
+          return response.json().then(data => {
+              //setErrors(data.errors);
+              return data.errors;
+          });
+        } else {
+          throw new Error();
+        }
       })
+      
     }
 }

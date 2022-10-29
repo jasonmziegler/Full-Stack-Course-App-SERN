@@ -1,27 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from './Form';
-
 import { useNavigate } from 'react-router-dom';
+const axios = require('axios');
+
+
 
  const UpdateCourse = (props) => {
   let navigate = useNavigate();
   const  { context } = props;
-  console.log("Context: ", context);
+  const params = useParams();
+
+  // console.log("Context: ", context);
+
   const credentials = {
     'username': context.authenticatedUser.emailAddress,
     'password': context.authenticatedUser.password
   }
-    console.log("Credentials: ", credentials);
-  const params = useParams();
+  // Tried to get course data but promise was pending 
+  // console.log("Credentials: ", credentials);
+  // const courseDetails = context.data.getCourse(params.id);
+  // console.log("courseDetails", courseDetails);
+  
+  const [course, setCourse] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [courseTitle, setCourseTitle] = useState("");
   const [userId, setUserId] = useState(1);
   const [courseDescription, setCourseDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
-    
-  
+
+  function fetchCourseDetailsHandler() {
+    //setCourse({courseId: params.id});
+    setIsLoading(true);
+            setError(null);
+            axios.get(`http://localhost:5000/api/courses/${params.id}`)
+            .then( (response) => {
+                // handle success
+                console.log("Axios Response", response.data);
+                let course = response.data;
+                setCourseTitle(course.title);
+                setUserId(context.authenticatedUser.id);
+                setCourseDescription(course.description);
+                setEstimatedTime(course.estimatedTime);
+                setMaterialsNeeded(course.materialsNeeded);
+            })
+            .catch(function (error) {
+                // handle error
+                //console.log(error);
+                setError(error);
+            })
+            .then(function () {
+                setIsLoading(false);
+            });
+            console.log("Course: ", course);
+
+  }
+ 
+  useEffect( () => {
+      console.log('UseEffect');
+      fetchCourseDetailsHandler();
+  }, []);
+
+  console.log("Update Course:", course);
+
     const submit = () => {
       console.log('Update Course button Clicked!');
       const course = {
@@ -66,6 +111,9 @@ import { useNavigate } from 'react-router-dom';
                         elements={() => (
                           <React.Fragment>
                             <div>
+                            <h3 className="course--detail--title">
+                                Course
+                            </h3>
                                 <label htmlFor="courseTitle">Course Title</label>
                                 <input 
                                 id="courseTitle" 
@@ -88,10 +136,10 @@ import { useNavigate } from 'react-router-dom';
                             </div>
                             <div>
                             <label htmlFor="courseDescription">Course Description</label>
-                            <input 
+                            <textarea 
                               id="courseDescription" 
                               name="courseDescription" 
-                              type="text"
+                              
                               value={courseDescription} 
                               onChange={(e) => {setCourseDescription(e.target.value)}} 
                               placeholder="Course Description" />
@@ -104,10 +152,10 @@ import { useNavigate } from 'react-router-dom';
                               onChange={(e) => {setEstimatedTime(e.target.value)}} 
                               placeholder="Estimated Time" />
                               <label htmlFor="materialsNeeded">Materials Needed</label>
-                              <input 
+                              <textarea 
                               id="materialsNeeded" 
                               name="materialsNeeded"
-                              type="materialsNeeded"
+                              
                               value={materialsNeeded} 
                               onChange={(e) => {setMaterialsNeeded(e.target.value)}} 
                               placeholder="Materials Needed" />
