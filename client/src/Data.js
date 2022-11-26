@@ -96,6 +96,30 @@ export default class Data {
       });
     }
 
+    async getCourses() {
+    // Make a request for a user with a given ID
+    try {
+    await this.api('/courses/', 'GET')
+      .then( (response) => {
+        // handle success
+       if (response.status === 500) {
+         console.log("Error: ", response.status)
+         throw new Error();
+       } else {
+        console.log("GetCourses response: ", response.data);
+        return response.data;
+       }
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+    } catch (error) {
+        console.log("error", error);
+      }
+    }
+    
+
     async getCourse(courseId) {
       // console.log("context.data.getCourse");
       await this.api(`/courses/${courseId}`, "GET")

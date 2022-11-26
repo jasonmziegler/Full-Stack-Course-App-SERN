@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const axios = require('axios');
 
-const Courses = () => {
+const Courses = (props) => {
   // constructor() {
   //   super();
   //   this.state = {
@@ -37,23 +37,40 @@ const Courses = () => {
   // render() {
   //   console.log('Courses: ', this.state.courses);
   //   let courses = this.state.courses;
-
+  const  { context } = props;
+  const [loading, setLoading] = useState(true);
   const [courses, updateCourses] = useState([]);
+
+//adapted from https://dev.to/darkmavis1980/fetching-data-with-react-hooks-and-axios-114h
+
+const fetchCoursesHandler = async () => {
+  setLoading(true);
+  try {
+    const response = await context.data.getCourses();
+    console.log(response);
+    updateCourses(response);
+  } catch (error) {
+    console.error(error.message);
+  }
+  setLoading(false);
+}
+
+  useEffect(() => {
+
+    fetchCoursesHandler();
+    
+  }, []);
+
     return (
       
       <main>
         <div className="wrap main--grid">
-        {
-          courses.map( course => (
-            <Course id={course.id} title={course.title} key={uuidv4()}/>
-          //   <Link className="course--module course--link" to={`/course-detail/${course.id}`}>
-          //     <h2 className="course--label">Course</h2>
-          //     <h3 className="course--title">{course.title}</h3>
-          // </Link>
-          ))
+        {loading && <div>Loading</div>}
+        {!loading && (
+          <div>
+            {courses.map(course => (<Course id={course.id} title={course.title} key={uuidv4()}/>))}
+          </div>)
         }
-        
-          
           <Link className="course--module course--add--module" to="/courses/create" >
               <span className="course--add--title">
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -63,7 +80,6 @@ const Courses = () => {
           </Link>
       </div>
       </main>
-      
     );
   }
 
