@@ -33,6 +33,7 @@ const HeaderWithContext = withContext(Header);
 const PrivateRoutesWithContext = withContext(PrivateRoutes);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const CreateCourseWithContext = withContext(CreateCourse);
+const CoursesWithContext = withContext(Courses);
 
 
 class App extends Component {
@@ -41,8 +42,8 @@ class App extends Component {
     <Router>
       <HeaderWithContext />
       <Routes>
-        <Route exact path='/' element={<Courses />} />
-        <Route path='/courses' element={<Courses />} />
+        <Route exact path='/' element={<CoursesWithContext />} />
+        <Route path='/courses' element={<CoursesWithContext />} />
         <Route path='/sign-in' element={<SignInWithContext />} />
         <Route path='/sign-up' element={<SignUpWithContext />} />   
         <Route path='/sign-out' element={<SignOutWithContext />} />        

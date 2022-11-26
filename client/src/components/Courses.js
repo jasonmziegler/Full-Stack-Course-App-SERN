@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from "react-router-dom";
 
@@ -8,35 +8,37 @@ import { v4 as uuidv4 } from 'uuid';
 
 const axios = require('axios');
 
-class Courses extends Component {
-  constructor() {
-    super();
-    this.state = {
-      courses: [],
-    };
-  }
-  componentDidMount() {
-    // Make a request for a user with a given ID
-    axios.get('http://localhost:5000/api/courses/')
-      .then( (response) => {
-        // handle success
-        //console.log(response);
-        this.setState({
-                  courses: response.data,
-        });
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-    }
+const Courses = () => {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     courses: [],
+  //   };
+  // }
+  // componentDidMount() {
+  //   // Make a request for a user with a given ID
+  //   axios.get('http://localhost:5000/api/courses/')
+  //     .then( (response) => {
+  //       // handle success
+  //       //console.log(response);
+  //       this.setState({
+  //                 courses: response.data,
+  //       });
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //     })
+  //     .then(function () {
+  //       // always executed
+  //     });
+  //   }
 
-  render() {
-    console.log('Courses: ', this.state.courses);
-    let courses = this.state.courses;
+  // render() {
+  //   console.log('Courses: ', this.state.courses);
+  //   let courses = this.state.courses;
+
+  const [courses, updateCourses] = useState([]);
     return (
       
       <main>
@@ -64,6 +66,6 @@ class Courses extends Component {
       
     );
   }
-}
+
 
 export default Courses;
