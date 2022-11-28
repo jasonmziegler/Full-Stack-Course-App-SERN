@@ -6,7 +6,7 @@ import Course from './Course';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const axios = require('axios');
+//const axios = require('axios');
 
 const Courses = (props) => {
   // constructor() {
@@ -43,16 +43,17 @@ const Courses = (props) => {
 
 //adapted from https://dev.to/darkmavis1980/fetching-data-with-react-hooks-and-axios-114h
 
-const fetchCoursesHandler = async () => {
+const fetchCoursesHandler = () => {
   setLoading(true);
-  try {
-    const response = await context.data.getCourses();
-    console.log(response);
-    updateCourses(response);
-  } catch (error) {
+  context.data.getCourses()
+  .then(data => {
+    console.log(data);
+    updateCourses(data);
+    setLoading(false);
+  })
+  .catch((error => {
     console.error(error.message);
-  }
-  setLoading(false);
+  }));
 }
 
   useEffect(() => {
