@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from "react-router-dom";
-
+import { useParams, Link} from 'react-router-dom';
+// tried , useNavigate got this errorLine 29:17:  React Hook "useNavigate" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function  react-hooks/rules-of-hooks
 const axios = require('axios');
 
 /// NEED to Pass details as props to update course to display already gathered info from API
@@ -26,6 +25,7 @@ const CourseDetail = () => {
                 // handle error
                 //console.log(error);
                 setError(error);
+                // useNavigate(error);
             })
             .then(function () {
                 setIsLoading(false);
